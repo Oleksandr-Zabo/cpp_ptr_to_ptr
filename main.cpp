@@ -26,26 +26,22 @@ void fillMatrix(T** arr, int row, int col)
     }
 }
 
-
 template<typename T>
 T** add_top_Matrix(T** arr, int& row, int col)
 {
-
     T** arr_1 = new T * [row + 1];
 
-    for (int i = 0; i < (row + 1); i++)//init new matrix
+    for (int i = 0; i < (row + 1); i++) // init new matrix
     {
         arr_1[i] = new T[col];
     }
 
-    for (int j = 0; j < col; j++)//write new row
+    for (int j = 0; j < col; j++) // write new row
     {
         arr_1[0][j] = rand() % 10;
     }
-    
-    row += 1;//add 1 row
 
-    for (int i = 1; i < row; i++)//write from old to new matrix
+    for (int i = 1; i < row + 1; i++) // write from old to new matrix
     {
         for (int j = 0; j < col; j++)
         {
@@ -53,9 +49,17 @@ T** add_top_Matrix(T** arr, int& row, int col)
         }
     }
 
+    // Delete old matrix
+    for (int i = 0; i < row; i++)
+    {
+        delete[] arr[i];
+    }
+    delete[] arr;
+
+    row += 1; // add 1 row
+
     return arr_1;
 }
-
 
 template<typename T>
 void printMatrix(T** arr, int row, int col)
@@ -84,6 +88,16 @@ void printMatrixAdress(T** arr, int row, int col)
     }
 }
 
+template<typename T>
+void deleteMatrix(T** arr, int row, int col = 1)
+{
+    for (int i = 0; i < row; i++)
+    {
+        delete[] arr[i];
+    }
+    delete[] arr;
+}
+
 int main()
 {
     srand(time(0));
@@ -98,7 +112,10 @@ int main()
     int** arr_1 = add_top_Matrix<int>(arr, row, col);
     cout << endl << endl;
     printMatrix(arr_1, row, col);
+
     /*printMatrixAdress(arr, row, col);*/
+
+    deleteMatrix(arr_1, row, col);
 
     system("pause");
     return 0;
