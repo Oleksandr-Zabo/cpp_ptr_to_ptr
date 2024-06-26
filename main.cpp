@@ -112,7 +112,7 @@ int main()
     {
         cout << "Enter index: ";
         cin >> index;
-    } while (index < 0 || index > row);
+    } while (index < 0 || index > col);
 
     int** arr = createMatrix<int>(row, col);
     fillMatrix(arr, row, col);
